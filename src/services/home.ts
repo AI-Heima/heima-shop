@@ -30,3 +30,11 @@ export const getHomeHotAPI = () => {
     url: '/home/hot/mutli',
   })
 }
+
+// 猜你喜欢-小程序
+export const getHomeHotAPI = () => {
+  return http<HotItem[]>({
+    method: 'GET',
+    url: '/home/hot/mutli',
+  })
+}

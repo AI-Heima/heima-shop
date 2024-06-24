@@ -15,9 +15,9 @@ const hotMap = [
 const query = defineProps<{
   type: string
 }>()
-const currentMap = hotMap.find((item) => item.type === query.type)
+const currUrlMap = hotMap.find((item) => item.type === query.type)
 // 动态设置标题
-uni.setNavigationBarTitle({ title: currentMap!.title })
+uni.setNavigationBarTitle({ title: currUrlMap!.title })
 
 // 推荐封面图
 const bannerPicture = ref('')
@@ -27,7 +27,7 @@ const subTypes = ref<SubTypeItem[]>([])
 const activeIndex = ref(0)
 // 获取热门推荐数据
 const getHotRecommendData = async () => {
-  const res = await getHotRecommendAPI(currentMap!.url)
+  const res = await getHotRecommendAPI(currUrlMap!.url)
   bannerPicture.value = res.result.bannerPicture
   subTypes.value = res.result.subTypes
 }
@@ -36,6 +36,24 @@ const getHotRecommendData = async () => {
 onLoad(() => {
   getHotRecommendData()
 })
+
+// 滚动处理
+const onScrolltolower = async () => {
+  // 获取当前选项
+  const currentSubType = subTypes.value[activeIndex.value]
+  // 当前页码累加
+  currentSubType.goodsItems.page++
+  // 调用API传参
+  const res = await getHotRecommendAPI(currUrlMap!.url, {
+    subType: currentSubType.id,
+    page: currentSubType.goodsItems.page,
+    pageSize: currentSubType.goodsItems.pageSize,
+  })
+  // 新的列表选项
+  const newsubTypes = res.result.subTypes[activeIndex.value]
+  // 数组追加
+  currentSubType.goodsItems.items.push(...newsubTypes.goodsItems.items)
+}
 </script>
 
 <template>
@@ -62,6 +80,7 @@ onLoad(() => {
       v-show="activeIndex === index"
       scroll-y
       class="scroll-view"
+      @scrolltolower="onScrolltolower"
     >
       <view class="goods">
         <navigator

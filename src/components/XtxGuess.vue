@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { getHomeGoodsGuessLikeAPI } from '@/services/home'
-import type { GuessItem, PageParams } from '@/types/global'
+import type { PageParams } from '@/types/global'
+import type { GuessItem } from '@/types/home'
 
 // 分页参数
 const pageParams: Required<PageParams> = {

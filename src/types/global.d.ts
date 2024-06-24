@@ -1,20 +1,3 @@
-export type GuessItem = {
-  /** id */
-  id: string
-  /** 商品名称 */
-  name: string
-  /** 商品描述 */
-  desc: string
-  /** 商品价格 */
-  price: number
-  /** 商品图片 */
-  picture: string
-  /** 商品折扣 */
-  discount: number
-  /** 商品已下单数量 */
-  orderNum: number
-}
-
 /** 首页-热门推荐数据类型 */
 export type PageResult<T> = {
   /** 总条数 */
@@ -35,4 +18,22 @@ export type PageParams = {
   page?: number
   /** 页大小：默认值为 10 */
   pageSize?: number
+}
+
+/** 通用商品类型 */
+export type GoodsItem = {
+  /** 商品描述 */
+  desc: string
+  /** 商品折扣 */
+  discount: number
+  /** id */
+  id: string
+  /** 商品名称 */
+  name: string
+  /** 商品已下单数量 */
+  orderNum: number
+  /** 商品图片 */
+  picture: string
+  /** 商品价格 */
+  price: number
 }

@@ -23,6 +23,8 @@
 		{
 			"path": "pages/my/my",
 			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "white",
 				"navigationBarTitleText": "我的"
 			}
 		},
@@ -35,7 +37,7 @@
 		{
 			"path": "pages/category/category",
 			"style": {
-				"navigationBarTitleText": "分类"
+				"navigationBarTitleText": "商品分类"
 			}
 		},
 		{

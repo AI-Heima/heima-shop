@@ -5,7 +5,7 @@ import type { GuessItem, PageParams } from '@/types/global'
 
 // 分页参数
 const pageParams: Required<PageParams> = {
-  page: 33,
+  page: 1,
   pageSize: 10,
 }
 // 猜你喜欢的列表

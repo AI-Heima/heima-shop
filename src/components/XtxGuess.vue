@@ -29,11 +29,18 @@ const getHomeGoodsGuessLikeData = async () => {
     finish.value = true
   }
 }
+// 重置数据
+const resetDate = () => {
+  pageParams.page = 1
+  finish.value = false
+  guessList.value = []
+}
 // 组件挂载完毕
 onMounted(() => getHomeGoodsGuessLikeData())
 // 暴露方法
 defineExpose({
   getMore: getHomeGoodsGuessLikeData,
+  resetDate,
 })
 </script>
 

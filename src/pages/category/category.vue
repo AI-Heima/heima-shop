@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getHomeBannerAPI } from '@/services/home'
 import { getCategoryTopAPI } from '@/services/category'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import type { BannerItem } from '@/types/home'
 import type { CategoryTopItem } from '@/types/category'
@@ -25,6 +25,11 @@ const getCategoryTopData = async () => {
 onLoad(() => {
   getBannerData()
   getCategoryTopData()
+})
+
+// 提取当前二级分类数据
+const subCategoryList = computed(() => {
+  return categoryList.value[activeIndex.value]?.children || []
 })
 </script>
 
@@ -55,7 +60,7 @@ onLoad(() => {
         <!-- 焦点图 -->
         <XtxSwiper class="banner" :list="bannerList" />
         <!-- 内容区域 -->
-        <view class="panel" v-for="item in categoryList[activeIndex]?.children" :key="item.id">
+        <view class="panel" v-for="item in subCategoryList" :key="item.id">
           <view class="title">
             <text class="name">{{ item.name }}</text>
             <navigator class="more" hover-class="none">全部</navigator>
@@ -66,7 +71,7 @@ onLoad(() => {
               :key="goods.id"
               class="goods"
               hover-class="none"
-              :url="`/pages/goods/goods?id=`"
+              :url="`/pages/goods/goods?id=${goods.id}`"
             >
               <image class="image" :src="goods.picture"></image>
               <view class="name ellipsis">{{ goods.name }}</view>

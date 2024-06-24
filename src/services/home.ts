@@ -1,5 +1,6 @@
 import type { BannerItem, CategoryItem, HotItem } from '@/types/home'
-import type { GuessItem, PageParams, PageResult } from '@/types/global'
+import type { PageParams, PageResult } from '@/types/global'
+import type { GuessItem } from '@/types/home'
 import { http } from '@/utils/http'
 
 // 首页-广告区域-小程序

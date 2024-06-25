@@ -7,7 +7,7 @@ import { getHomeBannerAPI, getHomeCategoryAPI, getHomeHotAPI } from '@/services/
 import { onLoad } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import XtxGuess from '@/components/XtxGuess.vue'
-import type { XtxGuessInstamce } from '@/types/component'
+import { useGuessList } from '@/composables'
 import PageSkeleton from './components/PageSkeleton.vue'
 
 // 获取轮播图数据
@@ -40,12 +40,10 @@ onLoad(async () => {
   await Promise.all([getHomeBannerData(), getHomeCategoryData(), getHomeHotData()])
   isLoading.value = false
 })
-// 获取猜你喜欢组件实例
-const guessRef = ref<XtxGuessInstamce>()
-// 滚动触底
-const onScrolltolower = () => {
-  guessRef.value?.getMore()
-}
+
+// 猜你喜欢组合式函数调用
+const { guessRef, onScrolltolower } = useGuessList()
+
 const isTriggered = ref(false)
 // 自定义下拉刷新被触发
 const onfresherrefresh = async () => {

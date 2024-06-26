@@ -11,6 +11,7 @@ import type {
   SkuPopupEvent,
 } from '@/components/vk-data-goods-sku-popup/vk-data-goods-sku-popup'
 import { postMemberCartAPI } from '@/services/cart'
+import { useAddressStore } from '@/stores'
 
 // 获取屏幕边界到安全区域距离
 const { safeAreaInsets } = uni.getSystemInfoSync()
@@ -77,7 +78,8 @@ const popup = ref<{
 
 // 弹出层条件渲染
 const popupName = ref<'address' | 'service'>()
-const openPopup = (name: typeof popupName.value) => {
+// const addressList = ref<AddressItem[]>([])
+const openPopup = async (name: typeof popupName.value) => {
   // 修改弹出层名称
   popupName.value = name
   popup.value?.open()
@@ -113,6 +115,19 @@ const onAddCart = async (ev: SkuPopupEvent) => {
   uni.showToast({ title: '添加成功' })
   isShowSku.value = false
 }
+
+// 立即购买
+const onBuyNow = async (ev: SkuPopupEvent) => {
+  uni.navigateTo({
+    url: `/pagesOrder/create/create?skuId=${ev._id}&count=${ev.buy_num}&addressId=${selectedAddress.value}`,
+  })
+}
+
+const addressStore = useAddressStore()
+// 收货地址
+const selectedAddress = computed(() => {
+  return addressStore.selectedAddress
+})
 </script>
 
 <template>
@@ -130,6 +145,7 @@ const onAddCart = async (ev: SkuPopupEvent) => {
       backgroundColor: '#e9f8f5',
     }"
     @add-cart="onAddCart"
+    @buy-now="onBuyNow"
   />
   <scroll-view scroll-y class="viewport">
     <!-- 基本信息 -->
@@ -166,7 +182,13 @@ const onAddCart = async (ev: SkuPopupEvent) => {
         </view>
         <view @tap="openPopup('address')" class="item arrow">
           <text class="label">送至</text>
-          <text class="text ellipsis"> 请选择收获地址 </text>
+          <text class="text ellipsis">
+            {{
+              selectedAddress
+                ? selectedAddress.fullLocation + ' ' + selectedAddress.address
+                : '请选择收获地址'
+            }}
+          </text>
         </view>
         <view @tap="openPopup('service')" class="item arrow">
           <text class="label">服务</text>

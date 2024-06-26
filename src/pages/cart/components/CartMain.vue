@@ -131,7 +131,7 @@ const { safeAreaInsets } = uni.getSystemInfoSync()
                 :class="{ checked: item.selected }"
               ></text>
               <navigator
-                :url="`/pages/goods/goods?id=1435025`"
+                :url="`/pages/goods/goods?id=${item.id}`"
                 hover-class="none"
                 class="navigator"
               >

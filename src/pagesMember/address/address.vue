@@ -3,7 +3,7 @@ import { getMemberAddressAPI, deleteMemberAddressByIdAPI } from '@/services/addr
 import { onShow } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import type { AddressItem } from '@/types/address'
-import { useAddressStore } from '@/stores/modules/address'
+import { useAddressStore } from '@/stores'
 
 // 获取收货地址列表数据
 const addressList = ref<AddressItem[]>([])

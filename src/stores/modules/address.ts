@@ -10,8 +10,13 @@ export const useAddressStore = defineStore('address', () => {
     selectedAddress.value = val
   }
 
+  const resetSelectedAddress = () => {
+    selectedAddress.value = undefined
+  }
+
   return {
     selectedAddress,
     changeSelectedAddress,
+    resetSelectedAddress,
   }
 })

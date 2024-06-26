@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useMemberStore } from '@/stores'
-import { getMemberCartAPI, deleteMemberCartAPI } from '@/services/cart'
+import { getMemberCartAPI, deleteMemberCartAPI, putMemberCartBySkuIdAPI } from '@/services/cart'
 import { onShow } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import type { CartItem } from '@/types/cart'
+import type { InputNumberBoxEvent } from '@/components/vk-data-input-number-box/vk-data-input-number-box'
 
 // 获取会员Store
 const memberStore = useMemberStore()
@@ -36,6 +37,11 @@ const onDeleteCart = (skuId: string) => {
       }
     },
   })
+}
+
+// 修改商品数量
+const onChangeCount = async (ev: InputNumberBoxEvent) => {
+  await putMemberCartBySkuIdAPI(ev.index, { count: ev.value })
 }
 </script>
 
@@ -72,9 +78,13 @@ const onDeleteCart = (skuId: string) => {
               </navigator>
               <!-- 商品数量 -->
               <view class="count">
-                <text class="text">-</text>
-                <input class="input" type="number" :value="item.count.toString()" />
-                <text class="text">+</text>
+                <vk-data-input-number-box
+                  v-model="item.count"
+                  :min="1"
+                  :max="item.stock"
+                  :index="item.skuId"
+                  @change="onChangeCount"
+                />
               </view>
             </view>
             <!-- 右侧删除按钮 -->

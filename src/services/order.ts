@@ -4,6 +4,8 @@ import type {
   OrderCreateParams,
   OrderResult,
   OrderLogisticResult,
+  OrderListParams,
+  OrderListResult,
 } from '@/types/order'
 
 // 填写订单-获取预付订单
@@ -90,6 +92,15 @@ export const putMemberOrderCancelByIdAPI = (id: string, data: { cancelReason: st
   return http<OrderResult>({
     method: 'PUT',
     url: `/member/order/${id}/cancel`,
+    data,
+  })
+}
+
+// 获取订单列表
+export const getMemberOrderAPI = (data: OrderListParams) => {
+  return http<OrderListResult>({
+    method: 'GET',
+    url: '/member/order',
     data,
   })
 }

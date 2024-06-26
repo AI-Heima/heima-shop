@@ -22,6 +22,14 @@ export const getMemberOrderPreNowAPI = (data: {
   })
 }
 
+// 填写订单-获取再次购买订单
+export const getMemberOrderPreAgainAPI = (id: string) => {
+  return http<OrderPreResult>({
+    method: 'GET',
+    url: `/member/order/repurchase/${id}`,
+  })
+}
+
 // 提交订单
 export const postMemberOrderAPI = (data: OrderCreateParams) => {
   return http<{ id: string }>({

@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { getMemberOrderPreAPI, getMemberOrderPreNowAPI, postMemberOrderAPI } from '@/services/order'
+import {
+  getMemberOrderPreAPI,
+  getMemberOrderPreNowAPI,
+  postMemberOrderAPI,
+  getMemberOrderPreAgainAPI,
+} from '@/services/order'
 import { onLoad } from '@dcloudio/uni-app'
 import type { OrderPreResult } from '@/types/order'
 import { useAddressStore } from '@/stores/modules/address'
@@ -29,12 +34,16 @@ const query = defineProps<{
   skuId?: string
   count?: string
   addressId?: string
+  orderId?: string
 }>()
 
 // 获取订单信息函数
 const orderPre = ref<OrderPreResult>()
 const getMemberOrderPreData = async () => {
-  if (query.count && query.skuId) {
+  if (query.orderId) {
+    const res = await getMemberOrderPreAgainAPI(query.orderId)
+    orderPre.value = res.result
+  } else if (query.count && query.skuId) {
     const res = await getMemberOrderPreNowAPI({
       count: query.count,
       skuId: query.skuId,

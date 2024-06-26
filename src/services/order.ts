@@ -46,3 +46,11 @@ export const getMemberOrderByIdAPI = (id: string) => {
     url: `/member/order/${id}`,
   })
 }
+
+// 模拟发货-内测版
+export const getMemberOrderConsignmentByIdAPI = (id: string) => {
+  return http({
+    method: 'GET',
+    url: `/member/order/consignment/${id}`,
+  })
+}

@@ -249,9 +249,11 @@ const selectedAddress = computed(() => {
   <view class="toolbar" :style="{ paddingBottom: safeAreaInsets?.bottom + 'px' }">
     <view class="icons">
       <button class="icons-button"><text class="icon-heart"></text>收藏</button>
+      <!-- #ifdef MP-WEIXIN -->
       <button class="icons-button" open-type="contact">
         <text class="icon-handset"></text>客服
       </button>
+      <!-- #endif -->
       <navigator class="icons-button" url="/pages/cart/cart2" open-type="navigate">
         <text class="icon-cart"></text>购物车
       </navigator>
@@ -270,6 +272,9 @@ const selectedAddress = computed(() => {
 </template>
 
 <style lang="scss">
+.toolbar .icons .navigator-wrap {
+  flex: 1;
+}
 page {
   height: 100%;
   overflow: hidden;
